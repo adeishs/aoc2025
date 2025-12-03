@@ -2,9 +2,9 @@
 # frozen_string_literal: true
 
 def find_joltage(batt)
-  m = batt[0...-1].chars.max
+  m = batt[0...-1].each_char.max
   i = batt[0...-1].index(m)
-  l = batt[i + 1..].chars.max
+  l = batt[i + 1..].each_char.max
   "#{m}#{l}".to_i
 end
 
