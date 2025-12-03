@@ -5,10 +5,8 @@ JOLTAGE_LEN = 12
 
 def find_joltage(batt)
   rem = JOLTAGE_LEN
-  m = batt[0..-rem].each_char.max
-  i = batt.index(m) + 1
-  js = [m]
-  rem -= 1
+  js = []
+  i = 0
   while rem.positive?
     m = batt[i..-rem].chars.max
     i += batt[i..-rem].index(m) + 1
