@@ -8,7 +8,7 @@ roll = Hash[
     end
   end.flatten
 ]
-liftable_cnt = roll.select do |pos, _is_roll|
+liftable_cnt = roll.select do |pos|
   if roll[pos]
     [*-1..1].product([*-1..1])
             .reject { |x, y| x.zero? && y.zero? }
