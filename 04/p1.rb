@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+ADJS = [*-1..1].product([*-1..1]).reject { |x, y| x.zero? && y.zero? }
+
 roll = Hash[
   *$stdin.readlines.each_with_index.map do |cols, y|
     cols.chomp.chars.each_with_index.map do |t, x|
@@ -9,14 +11,8 @@ roll = Hash[
   end.flatten
 ]
 liftable_cnt = roll.select do |pos|
-  if roll[pos]
-    [*-1..1].product([*-1..1])
-            .reject { |x, y| x.zero? && y.zero? }
-            .select { |x, y| roll[Complex(pos.real + x, pos.imag + y)] }
-            .size < 4
-  else
-    false
-  end
+  roll[pos] &&
+    ADJS.select { |x, y| roll[Complex(pos.real + x, pos.imag + y)] }.size < 4
 end.size
 
 puts liftable_cnt
