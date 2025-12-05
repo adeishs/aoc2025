@@ -4,22 +4,23 @@
 require 'set'
 
 def parse(lines)
-  fresh_str, ing_str = lines.split("\n\n")
-
-  {
-    fresh_ranges: fresh_str.split("\n")
-                           .map { |l| Range.new(*l.split('-').map(&:to_i)) },
-    ing_ids: ing_str.split("\n").map(&:to_i)
-  }
+  lines.split("\n\n")
+       .first
+       .split("\n")
+       .map { |l| Range.new(*l.split('-').map(&:to_i)) }
 end
 
-data = parse($stdin.read)
-ranges = data[:fresh_ranges].sort_by(&:begin).each_with_object([]) do |r, a|
-  if a.any? && r.begin.between?(a.last.begin, a.last.end)
-    last = a.pop
-    a << Range.new(last.begin, r.end)
-  else
-    a << r
-  end
+fresh_ranges = parse($stdin.read).sort do |a, b|
+  a.begin == b.begin ? a.end <=> b.end : a.begin <=> b.begin
 end
-puts(ranges.sum(&:size))
+
+ranges = [fresh_ranges.shift]
+fresh_ranges.each do |r|
+  ranges << if ranges.last.cover?(r.begin)
+              l = ranges.pop
+              Range.new(l.begin, [r.end, l.end].max)
+            else
+              r
+            end
+end
+puts ranges.sum(&:size)
