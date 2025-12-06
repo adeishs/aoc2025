@@ -1,8 +1,6 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require 'set'
-
 def parse(lines)
   lines.split("\n\n")
        .first
