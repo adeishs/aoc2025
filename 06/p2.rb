@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-rows = $stdin.readlines.map { |l| l.chomp }
+rows = $stdin.readlines.map(&:chomp)
 operators = rows.pop
                 .chars
                 .map.with_index { |c, i| { op: c, pos: i } }
