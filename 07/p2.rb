@@ -2,11 +2,11 @@
 # frozen_string_literal: true
 
 coords = $stdin.readlines
-               .map.with_index do |row, y|
+               .flat_map.with_index do |row, y|
                  row.chars.map.with_index do |c, x|
                    c == '^' ? Complex(x, y) : nil
                  end
-               end.flatten.reject(&:nil?)
+               end.reject(&:nil?)
 splits = Hash.new(0)
 splits[coords.first] = 1
 
