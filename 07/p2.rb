@@ -14,8 +14,7 @@ coords[1...coords.size].each.with_index do |curr, i|
   coords[
     0..i
   ].reject { |prev| prev.imag == curr.imag || (prev.real - curr.real).abs > 1 }
-    .reverse
-    .each do |prev|
+    .reverse_each do |prev|
     break if prev.real == curr.real
 
     splits[curr] += splits[prev]
