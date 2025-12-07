@@ -1,8 +1,6 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require 'set'
-
 coords = $stdin.readlines
                .map.with_index do |row, y|
                  row.chars.map.with_index do |c, x|
