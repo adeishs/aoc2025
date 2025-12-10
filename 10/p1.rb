@@ -16,12 +16,10 @@ def parse(line)
 end
 
 def solve(machine)
-  n = 1
-  while n <= machine[:len]
+  (1..machine[:len]).each do |n|
     machine[:buttons].combination(n).each do |buttons|
       return n if machine[:light] == buttons.reduce(0) { |a, b| a ^ b }
     end
-    n += 1
   end
 end
 
