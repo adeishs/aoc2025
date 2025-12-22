@@ -10,22 +10,8 @@ def parse(line)
 end
 
 def solve(devices)
-  devices = devices.reject { |_, dests| dests.any? { |d| d == 'you' } }
-
   until devices['you'].all? { |d| d == 'out' }
-    new_dests = []
-    deleted_dests = Set.new
-    devices['you'].each do |d|
-      if d == 'out'
-        new_dests.push(d)
-      else
-        new_dests.push(*devices[d])
-        deleted_dests << d
-      end
-    end
-
-    devices['you'] = new_dests
-    devices.delete_if { |k, _| deleted_dests.member?(k) }
+    devices['you'] = devices['you'].flat_map { |d| d == 'out' ? d : devices[d] }
   end
 
   devices['you'].size
